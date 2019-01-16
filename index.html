@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>不规则区间段的评分进度条</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html,
+        body{
+            width: 100%;
+            height: 100%;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:linear-gradient(154deg,rgba(255,125,119,1) 0%,rgba(248,70,62,1) 100%);
+        }
+        .container{
+            width:100%;
+            position: relative;
+        }
+        .container .credit{
+            width:100%;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container .credit .canvas{
+            display: block;
+        }
+        .container .credit .canvas--pointer{
+            position: absolute;
+            top: 0;
+            left:0;
+        }
+        .container .input{
+            display: none;
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 200px;
+            font-size: 12px;
+            text-align: center;
+        }
+        .container .input .label{
+            width: 60%;
+            margin: 0 auto;
+            margin-bottom:5px;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.9);
+        }
+        .container .input input{
+            border:none;
+            padding: 5px;
+            background: none;
+            outline: none;
+
+        }
+    </style>
+    <script src="./canvas2D.js"></script>
+    <!-- <script src="./init.js"></script> -->
+</head>
+ 
+<body>
+    <div class="container">
+        <div class="credit">
+            <canvas id="clock" class="canvas canvas--clock"></canvas>
+            <!-- <canvas id="pointer" class="canvas canvas--pointer" width="1100" height="1080"></canvas>   -->
+        </div>
+        <div class="input">
+            <div class="label">输入评分：<input type="number" id="score" placeholder="0-945之间，超出会爆炸..." ></div>
+            <div class="label">缓动速度：<input type="number" id="speed" placeholder="1-3之间，越大越慢"></div>
+            <div class="label"><input type="button" id="run" value="run"></div>
+            
+        </div>
+    </div>
+</body>
+<script>
+    
+    window.onload = () => {
+        // 初始化 Canvas2D
+        let canvas = new Canvas2D({
+            selector:'#clock',
+            width:400,
+            height:400
+        })
+        canvas.canvasHD(2);                                          // 2 倍高清
+        canvas.moveCoord('center');  
+        canvas.createGradient({
+            name:'s-s',
+        })   
+        // console.log(canvas.getGradient('s-s'))
+        canvas.renderStyle('#fff')         // 绘制圆环
+        
+        canvas.drawCircle({type:'stroke',radius:140,width:10})         // 绘制圆环
+        canvas.drawCircle({type:'stroke',radius:120,width:10})         // 绘制圆环
+        canvas.drawCircle({type:'stroke',radius:100,width:10,style:'#06f'})         // 绘制圆环
+        canvas.drawCircle({type:'stroke',radius:80,width:10,style:'#000'})         // 绘制圆环
+        canvas.drawCircle({type:'stroke',radius:60,width:10})         // 绘制圆环
+        canvas.drawCircle({type:'stroke',radius:40,width:10})         // 绘制圆环
+        canvas.drawCircle({type:'fill',radius:25,width:10})         // 绘制圆环
+
+        // canvas.drawCircle({type:'fill',radius:10})                   // 绘制圆
+        // canvas.drawText({color:'#000',text:'💗'});                         // 绘制文字 
+
+        // clock.clearRect('all');  // 清空画布
+
+    }
+</script>  
+</html>
